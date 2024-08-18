@@ -63,6 +63,31 @@ def get_deck(deck_id):
 
     return jsonify(deck_data)
 
+@app.route('/decks', methods=['GET'])
+def get_all_decks():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+
+    c.execute('SELECT * FROM deck')
+    decks = c.fetchall()
+
+    conn.close()
+
+    return jsonify([dict(deck) for deck in decks])
+
+@app.route('/cards', methods=['GET'])
+def get_all_cards():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+
+    c.execute('SELECT * FROM card')
+    cards = c.fetchall()
+
+    conn.close()
+
+    return jsonify([dict(card) for card in cards])
 
 @app.route('/card/<int:card_id>', methods=['GET'])
 def get_card(card_id):
