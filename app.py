@@ -36,21 +36,6 @@ def execute_query(query, params=()):
     conn.commit()
     conn.close()
 
-@app.route('/card/<int:card_id>', methods=['GET'])
-def get_card(card_id):
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    c = conn.cursor()
-
-    c.execute('SELECT * FROM card WHERE card_id = ?', (card_id,))
-    card = c.fetchone()
-
-    conn.close()
-
-    if card:
-        return jsonify(dict(card))
-    else:
-        return jsonify({"error": "Card not found"}), 404
 
 
 @app.route('/deck/<int:deck_id>', methods=['GET'])
