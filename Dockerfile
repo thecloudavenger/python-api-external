@@ -5,6 +5,7 @@ WORKDIR /flask-docker
 RUN python3 -m pip install --upgrade pip
 
 COPY requirements.txt requirements.txt
+COPY database.db database.db
 
 RUN pip3 install -r requirements.txt
 
